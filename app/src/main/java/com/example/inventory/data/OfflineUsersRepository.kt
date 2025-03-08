@@ -16,4 +16,30 @@
 
 package com.example.inventory.data
 
-class OfflineUsersRepository : UsersRepository
+import kotlinx.coroutines.flow.Flow
+
+class OfflineUsersRepository : UsersRepository {
+    override fun getAllUsers(): Flow<List<User>> {
+        TODO("Not yet implemented")
+    }
+
+    override fun getUserStream(id: Int): Flow<User?> {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun insertUser(user: User) {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun deleteUser(user: User) {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun updateUser(user: User) {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun deleteUserById(id: Int) {
+        TODO("Not yet implemented")
+    }
+}

@@ -16,7 +16,22 @@
 
 package com.example.inventory.data
 
+import androidx.room.Query
+import kotlinx.coroutines.flow.Flow
 /**
  * Repository that provides insert, update, delete, and retrieve of [User] from a given data source.
  */
-interface UsersRepository
+interface UsersRepository{
+    fun getAllUsers(): Flow<List<User>>
+
+    fun getUserStream (id: Int): Flow<User?>
+
+    suspend fun insertUser(user: User)
+
+    suspend fun deleteUser(user:User)
+
+    suspend fun updateUser(user:User)
+
+    @Query("DELETE FROM users WHERE id = :id")
+    suspend fun deleteUserById(id: Int)
+}

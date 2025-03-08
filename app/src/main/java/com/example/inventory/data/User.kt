@@ -16,10 +16,14 @@
 
 package com.example.inventory.data
 
+import androidx.compose.ui.text.style.LineBreak
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 
 /**
  * Entity data class represents a single row in the database.
  */
+@Entity( tableName = "Users")
 class User(
     val id: Int = 0,
     val name: String,
