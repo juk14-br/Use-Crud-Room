@@ -24,9 +24,9 @@ import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import com.example.inventory.InventoryApplication
 import com.example.inventory.ui.home.HomeViewModel
-import com.example.inventory.ui.user.ItemDetailsViewModel
+import com.example.inventory.ui.user.UserDetailsViewModel
 import com.example.inventory.ui.user.UserEditViewModel
-import com.example.inventory.ui.user.ItemEntryViewModel
+import com.example.inventory.ui.user.UserEntryViewModel
 
 /**
  * Provides Factory to create instance of ViewModel for the entire Inventory app
@@ -41,12 +41,12 @@ object AppViewModelProvider {
         }
         // Initializer for ItemEntryViewModel
         initializer {
-            ItemEntryViewModel()
+            UserEntryViewModel()
         }
 
         // Initializer for ItemDetailsViewModel
         initializer {
-            ItemDetailsViewModel(
+            UserDetailsViewModel(
                 this.createSavedStateHandle()
             )
         }

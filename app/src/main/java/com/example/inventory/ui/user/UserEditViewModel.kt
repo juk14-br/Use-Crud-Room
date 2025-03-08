@@ -33,14 +33,14 @@ class UserEditViewModel(
     /**
      * Holds current item ui state
      */
-    var itemUiState by mutableStateOf(ItemUiState())
+    var userUiState by mutableStateOf(UserUiState())
         private set
 
-    private val itemId: Int = checkNotNull(savedStateHandle[ItemEditDestination.itemIdArg])
+    private val userId: Int = checkNotNull(savedStateHandle[ItemEditDestination.userIdArg])
 
-    private fun validateInput(uiState: ItemDetails = itemUiState.itemDetails): Boolean {
+    private fun validateInput(uiState: UserDetails = userUiState.userDetails): Boolean {
         return with(uiState) {
-            name.isNotBlank() && price.isNotBlank() && quantity.isNotBlank()
+            name.isNotBlank() && email.isNotBlank() && idade.isNotBlank()
         }
     }
 }

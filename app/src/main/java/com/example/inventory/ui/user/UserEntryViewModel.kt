@@ -26,26 +26,26 @@ import java.text.NumberFormat
 /**
  * ViewModel to validate and insert items in the Room database.
  */
-class ItemEntryViewModel : ViewModel() {
+class UserEntryViewModel : ViewModel() {
 
     /**
      * Holds current item ui state
      */
-    var itemUiState by mutableStateOf(ItemUiState())
+    var userUiState by mutableStateOf(UserUiState())
         private set
 
     /**
-     * Updates the [itemUiState] with the value provided in the argument. This method also triggers
+     * Updates the [userUiState] with the value provided in the argument. This method also triggers
      * a validation for input values.
      */
-    fun updateUiState(itemDetails: ItemDetails) {
-        itemUiState =
-            ItemUiState(itemDetails = itemDetails, isEntryValid = validateInput(itemDetails))
+    fun updateUiState(userDetails: UserDetails) {
+        userUiState =
+            UserUiState(userDetails = userDetails, isEntryValid = validateInput(userDetails))
     }
 
-    private fun validateInput(uiState: ItemDetails = itemUiState.itemDetails): Boolean {
+    private fun validateInput(uiState: UserDetails = userUiState.userDetails): Boolean {
         return with(uiState) {
-            name.isNotBlank() && price.isNotBlank() && quantity.isNotBlank()
+            name.isNotBlank() && email.isNotBlank() && idade.isNotBlank()
         }
     }
 }
@@ -53,28 +53,28 @@ class ItemEntryViewModel : ViewModel() {
 /**
  * Represents Ui State for an Item.
  */
-data class ItemUiState(
-    val itemDetails: ItemDetails = ItemDetails(),
+data class UserUiState(
+    val userDetails: UserDetails = UserDetails(),
     val isEntryValid: Boolean = false
 )
 
-data class ItemDetails(
+data class UserDetails(
     val id: Int = 0,
     val name: String = "",
-    val price: String = "",
-    val quantity: String = "",
+    val email: String = "",
+    val idade: String = "",
 )
 
 /**
- * Extension function to convert [ItemDetails] to [User]. If the value of [ItemDetails.price] is
+ * Extension function to convert [UserDetails] to [User]. If the value of [UserDetails.email] is
  * not a valid [Double], then the price will be set to 0.0. Similarly if the value of
- * [ItemDetails.quantity] is not a valid [Int], then the quantity will be set to 0
+ * [UserDetails.idade] is not a valid [Int], then the quantity will be set to 0
  */
-fun ItemDetails.toItem(): User = User(
+fun UserDetails.toItem(): User = User(
     id = id,
     name = name,
-    price = price.toDoubleOrNull() ?: 0.0,
-    quantity = quantity.toIntOrNull() ?: 0
+    price = email.toDoubleOrNull() ?: 0.0,
+    idade = idade.toIntOrNull() ?: 0
 )
 
 fun User.formatedPrice(): String {
@@ -82,19 +82,19 @@ fun User.formatedPrice(): String {
 }
 
 /**
- * Extension function to convert [User] to [ItemUiState]
+ * Extension function to convert [User] to [UserUiState]
  */
-fun User.toItemUiState(isEntryValid: Boolean = false): ItemUiState = ItemUiState(
-    itemDetails = this.toItemDetails(),
+fun User.toItemUiState(isEntryValid: Boolean = false): UserUiState = UserUiState(
+    userDetails = this.toItemDetails(),
     isEntryValid = isEntryValid
 )
 
 /**
- * Extension function to convert [User] to [ItemDetails]
+ * Extension function to convert [User] to [UserDetails]
  */
-fun User.toItemDetails(): ItemDetails = ItemDetails(
+fun User.toItemDetails(): UserDetails = UserDetails(
     id = id,
     name = name,
-    price = price.toString(),
-    quantity = quantity.toString()
+    email = price.toString(),
+    idade = idade.toString()
 )

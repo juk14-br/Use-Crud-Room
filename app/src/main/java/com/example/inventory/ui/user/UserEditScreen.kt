@@ -29,22 +29,22 @@ import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.inventory.InventoryTopAppBar
+import com.example.inventory.UserCrudTopAppBar
 import com.example.inventory.R
 import com.example.inventory.ui.AppViewModelProvider
 import com.example.inventory.ui.navigation.NavigationDestination
-import com.example.inventory.ui.theme.InventoryTheme
+import com.example.inventory.ui.theme.UserCrudTheme
 
 object ItemEditDestination : NavigationDestination {
     override val route = "item_edit"
     override val titleRes = R.string.edit_item_title
-    const val itemIdArg = "itemId"
-    val routeWithArgs = "$route/{$itemIdArg}"
+    const val userIdArg = "itemId"
+    val routeWithArgs = "$route/{$userIdArg}"
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ItemEditScreen(
+fun UserEditScreen(
     navigateBack: () -> Unit,
     onNavigateUp: () -> Unit,
     modifier: Modifier = Modifier,
@@ -52,7 +52,7 @@ fun ItemEditScreen(
 ) {
     Scaffold(
         topBar = {
-            InventoryTopAppBar(
+            UserCrudTopAppBar(
                 title = stringResource(ItemEditDestination.titleRes),
                 canNavigateBack = true,
                 navigateUp = onNavigateUp
@@ -60,9 +60,9 @@ fun ItemEditScreen(
         },
         modifier = modifier
     ) { innerPadding ->
-        ItemEntryBody(
-            itemUiState = viewModel.itemUiState,
-            onItemValueChange = { },
+        UserEntryBody(
+            userUiState = viewModel.userUiState,
+            onUserValueChange = { },
             onSaveClick = { },
             modifier = Modifier
                 .padding(
@@ -77,8 +77,8 @@ fun ItemEditScreen(
 
 @Preview(showBackground = true)
 @Composable
-fun ItemEditScreenPreview() {
-    InventoryTheme {
-        ItemEditScreen(navigateBack = { /*Do nothing*/ }, onNavigateUp = { /*Do nothing*/ })
+fun UserEditScreenPreview() {
+    UserCrudTheme {
+        UserEditScreen(navigateBack = { /*Do nothing*/ }, onNavigateUp = { /*Do nothing*/ })
     }
 }

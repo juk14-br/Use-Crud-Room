@@ -52,30 +52,30 @@ import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
-import com.example.inventory.InventoryTopAppBar
+import com.example.inventory.UserCrudTopAppBar
 import com.example.inventory.R
 import com.example.inventory.data.User
 import com.example.inventory.ui.navigation.NavigationDestination
-import com.example.inventory.ui.theme.InventoryTheme
+import com.example.inventory.ui.theme.UserCrudTheme
 
-object ItemDetailsDestination : NavigationDestination {
+object UserDetailsDestination : NavigationDestination {
     override val route = "item_details"
     override val titleRes = R.string.item_detail_title
-    const val itemIdArg = "itemId"
-    val routeWithArgs = "$route/{$itemIdArg}"
+    const val userIdArg = "itemId"
+    val routeWithArgs = "$route/{$userIdArg}"
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ItemDetailsScreen(
+fun UserDetailsScreen(
     navigateToEditItem: (Int) -> Unit,
     navigateBack: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Scaffold(
         topBar = {
-            InventoryTopAppBar(
-                title = stringResource(ItemDetailsDestination.titleRes),
+            UserCrudTopAppBar(
+                title = stringResource(UserDetailsDestination.titleRes),
                 canNavigateBack = true,
                 navigateUp = navigateBack
             )
@@ -93,9 +93,9 @@ fun ItemDetailsScreen(
             }
         }, modifier = modifier
     ) { innerPadding ->
-        ItemDetailsBody(
-            itemDetailsUiState = ItemDetailsUiState(),
-            onSellItem = { },
+        UserDetailsBody(
+            UserDetailsUiState = UserDetailsUiState(),
+            onSellUser = { },
             onDelete = { },
             modifier = Modifier
                 .padding(
@@ -109,9 +109,9 @@ fun ItemDetailsScreen(
 }
 
 @Composable
-private fun ItemDetailsBody(
-    itemDetailsUiState: ItemDetailsUiState,
-    onSellItem: () -> Unit,
+private fun UserDetailsBody(
+    UserDetailsUiState: UserDetailsUiState,
+    onSellUser: () -> Unit,
     onDelete: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -121,12 +121,12 @@ private fun ItemDetailsBody(
     ) {
         var deleteConfirmationRequired by rememberSaveable { mutableStateOf(false) }
 
-        ItemDetails(
-            user = itemDetailsUiState.itemDetails.toItem(),
+        UserDetails(
+            user = UserDetailsUiState.UserDetails.toItem(),
             modifier = Modifier.fillMaxWidth()
         )
         Button(
-            onClick = onSellItem,
+            onClick = onSellUser,
             modifier = Modifier.fillMaxWidth(),
             shape = MaterialTheme.shapes.small,
             enabled = true
@@ -154,7 +154,7 @@ private fun ItemDetailsBody(
 }
 
 @Composable
-fun ItemDetails(
+fun UserDetails(
     user: User, modifier: Modifier = Modifier
 ) {
     Card(
@@ -172,21 +172,21 @@ fun ItemDetails(
                 dimensionResource(id = R.dimen.padding_medium)
             )
         ) {
-            ItemDetailsRow(
+            UserDetailsRow(
                 labelResID = R.string.item,
                 itemDetail = user.name,
                 modifier = Modifier.padding(
                     horizontal = dimensionResource(id = R.dimen.padding_medium)
                 )
             )
-            ItemDetailsRow(
+            UserDetailsRow(
                 labelResID = R.string.quantity_in_stock,
-                itemDetail = user.quantity.toString(),
+                itemDetail = user.idade.toString(),
                 modifier = Modifier.padding(
                     horizontal = dimensionResource(id = R.dimen.padding_medium)
                 )
             )
-            ItemDetailsRow(
+            UserDetailsRow(
                 labelResID = R.string.price,
                 itemDetail = user.formatedPrice(),
                 modifier = Modifier.padding(
@@ -198,7 +198,7 @@ fun ItemDetails(
 }
 
 @Composable
-private fun ItemDetailsRow(
+private fun UserDetailsRow(
     @StringRes labelResID: Int, itemDetail: String, modifier: Modifier = Modifier
 ) {
     Row(modifier = modifier) {
@@ -233,13 +233,13 @@ private fun DeleteConfirmationDialog(
 @Preview(showBackground = true)
 @Composable
 fun ItemDetailsScreenPreview() {
-    InventoryTheme {
-        ItemDetailsBody(
-            ItemDetailsUiState(
+    UserCrudTheme {
+        UserDetailsBody(
+            UserDetailsUiState(
                 outOfStock = true,
-                itemDetails = ItemDetails(1, "Pen", "$100", "10")
+                UserDetails = UserDetails(1, "Pen", "$100", "10")
             ),
-            onSellItem = {},
+            onSellUser = {},
             onDelete = {}
         )
     }

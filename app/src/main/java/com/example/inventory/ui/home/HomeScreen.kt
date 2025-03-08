@@ -47,12 +47,12 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.inventory.InventoryTopAppBar
+import com.example.inventory.UserCrudTopAppBar
 import com.example.inventory.R
 import com.example.inventory.data.User
 import com.example.inventory.ui.user.formatedPrice
 import com.example.inventory.ui.navigation.NavigationDestination
-import com.example.inventory.ui.theme.InventoryTheme
+import com.example.inventory.ui.theme.UserCrudTheme
 
 object HomeDestination : NavigationDestination {
     override val route = "home"
@@ -65,8 +65,8 @@ object HomeDestination : NavigationDestination {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(
-    navigateToItemEntry: () -> Unit,
-    navigateToItemUpdate: (Int) -> Unit,
+    navigateToUserEntry: () -> Unit,
+    navigateToUserUpdate: (Int) -> Unit,
     modifier: Modifier = Modifier
 ) {
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
@@ -74,7 +74,7 @@ fun HomeScreen(
     Scaffold(
         modifier = modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = {
-            InventoryTopAppBar(
+            UserCrudTopAppBar(
                 title = stringResource(HomeDestination.titleRes),
                 canNavigateBack = false,
                 scrollBehavior = scrollBehavior
@@ -82,20 +82,20 @@ fun HomeScreen(
         },
         floatingActionButton = {
             FloatingActionButton(
-                onClick = navigateToItemEntry,
+                onClick = navigateToUserEntry,
                 shape = MaterialTheme.shapes.medium,
                 modifier = Modifier.padding(dimensionResource(id = R.dimen.padding_large))
             ) {
                 Icon(
                     imageVector = Icons.Default.Add,
-                    contentDescription = stringResource(R.string.item_entry_title)
+                    contentDescription = stringResource(R.string.user_entry_title)
                 )
             }
         },
     ) { innerPadding ->
         HomeBody(
             userList = listOf(),
-            onItemClick = navigateToItemUpdate,
+            onItemClick = navigateToUserUpdate,
             modifier = modifier.fillMaxSize(),
             contentPadding = innerPadding,
         )
@@ -121,7 +121,7 @@ private fun HomeBody(
                 modifier = Modifier.padding(contentPadding),
             )
         } else {
-            InventoryList(
+            UserList(
                 userList = userList,
                 onItemClick = { onItemClick(it.id) },
                 contentPadding = contentPadding,
@@ -132,7 +132,7 @@ private fun HomeBody(
 }
 
 @Composable
-private fun InventoryList(
+private fun UserList(
     userList: List<User>,
     onItemClick: (User) -> Unit,
     contentPadding: PaddingValues,
@@ -142,17 +142,17 @@ private fun InventoryList(
         modifier = modifier,
         contentPadding = contentPadding
     ) {
-        items(items = userList, key = { it.id }) { item ->
-            InventoryItem(user = item,
+        items(items = userList, key = { it.id }) { user ->
+            UserList(user = user,
                 modifier = Modifier
                     .padding(dimensionResource(id = R.dimen.padding_small))
-                    .clickable { onItemClick(item) })
+                    .clickable { onItemClick(user) })
         }
     }
 }
 
 @Composable
-private fun InventoryItem(
+private fun UserList(
     user: User, modifier: Modifier = Modifier
 ) {
     Card(
@@ -177,7 +177,7 @@ private fun InventoryItem(
                 )
             }
             Text(
-                text = stringResource(R.string.in_stock, user.quantity),
+                text = stringResource(R.string.in_stock, user.idade),
                 style = MaterialTheme.typography.titleMedium
             )
         }
@@ -187,9 +187,9 @@ private fun InventoryItem(
 @Preview(showBackground = true)
 @Composable
 fun HomeBodyPreview() {
-    InventoryTheme {
+    UserCrudTheme {
         HomeBody(listOf(
-            User(1, "Game", 100.0, 20), User(2, "Pen", 200.0, 30), User(3, "TV", 300.0, 50)
+            User(1, "Jose", "teste@gmail.com", "33"), User(2, "Maria", "maria@gmail.com", "33"), User(3, "Joao", "joao@gmail.com", "38")
         ), onItemClick = {})
     }
 }
@@ -197,17 +197,17 @@ fun HomeBodyPreview() {
 @Preview(showBackground = true)
 @Composable
 fun HomeBodyEmptyListPreview() {
-    InventoryTheme {
+    UserCrudTheme {
         HomeBody(listOf(), onItemClick = {})
     }
 }
 
 @Preview(showBackground = true)
 @Composable
-fun InventoryItemPreview() {
-    InventoryTheme {
-        InventoryItem(
-            User(1, "Game", 100.0, 20),
+fun UserCrudPreview() {
+    UserCrudTheme {
+        UserList(
+            User(1, "Jose", "jose@gmail.com", "32"),
         )
     }
 }

@@ -25,11 +25,11 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.example.inventory.ui.home.HomeDestination
 import com.example.inventory.ui.home.HomeScreen
-import com.example.inventory.ui.user.ItemDetailsDestination
-import com.example.inventory.ui.user.ItemDetailsScreen
+import com.example.inventory.ui.user.UserDetailsDestination
+import com.example.inventory.ui.user.UserDetailsScreen
 import com.example.inventory.ui.user.ItemEditDestination
-import com.example.inventory.ui.user.ItemEditScreen
-import com.example.inventory.ui.user.ItemEntryDestination
+import com.example.inventory.ui.user.UserEditScreen
+import com.example.inventory.ui.user.UserEntryDestination
 import com.example.inventory.ui.user.ItemEntryScreen
 
 /**
@@ -47,36 +47,36 @@ fun InventoryNavHost(
     ) {
         composable(route = HomeDestination.route) {
             HomeScreen(
-                navigateToItemEntry = { navController.navigate(ItemEntryDestination.route) },
-                navigateToItemUpdate = {
-                    navController.navigate("${ItemDetailsDestination.route}/${it}")
+                navigateToUserEntry = { navController.navigate(UserEntryDestination.route) },
+                navigateToUserUpdate = {
+                    navController.navigate("${UserDetailsDestination.route}/${it}")
                 }
             )
         }
-        composable(route = ItemEntryDestination.route) {
+        composable(route = UserEntryDestination.route) {
             ItemEntryScreen(
                 navigateBack = { navController.popBackStack() },
                 onNavigateUp = { navController.navigateUp() }
             )
         }
         composable(
-            route = ItemDetailsDestination.routeWithArgs,
-            arguments = listOf(navArgument(ItemDetailsDestination.itemIdArg) {
+            route = UserDetailsDestination.routeWithArgs,
+            arguments = listOf(navArgument(UserDetailsDestination.userIdArg) {
                 type = NavType.IntType
             })
         ) {
-            ItemDetailsScreen(
+            UserDetailsScreen(
                 navigateToEditItem = { navController.navigate("${ItemEditDestination.route}/$it") },
                 navigateBack = { navController.navigateUp() }
             )
         }
         composable(
             route = ItemEditDestination.routeWithArgs,
-            arguments = listOf(navArgument(ItemEditDestination.itemIdArg) {
+            arguments = listOf(navArgument(ItemEditDestination.userIdArg) {
                 type = NavType.IntType
             })
         ) {
-            ItemEditScreen(
+            UserEditScreen(
                 navigateBack = { navController.popBackStack() },
                 onNavigateUp = { navController.navigateUp() }
             )

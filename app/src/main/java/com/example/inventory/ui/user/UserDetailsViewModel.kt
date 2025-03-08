@@ -23,11 +23,11 @@ import com.example.inventory.data.UsersRepository
 /**
  * ViewModel to retrieve, update and delete an item from the [UsersRepository]'s data source.
  */
-class ItemDetailsViewModel(
+class UserDetailsViewModel(
     savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
-    private val itemId: Int = checkNotNull(savedStateHandle[ItemDetailsDestination.itemIdArg])
+    private val UserId: Int = checkNotNull(savedStateHandle[UserDetailsDestination.userIdArg])
 
     companion object {
         private const val TIMEOUT_MILLIS = 5_000L
@@ -35,9 +35,9 @@ class ItemDetailsViewModel(
 }
 
 /**
- * UI state for ItemDetailsScreen
+ * UI state for UserDetailsScreen
  */
-data class ItemDetailsUiState(
+data class UserDetailsUiState(
     val outOfStock: Boolean = true,
-    val itemDetails: ItemDetails = ItemDetails()
+    val UserDetails: UserDetails = UserDetails()
 )
