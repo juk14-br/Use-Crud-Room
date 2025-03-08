@@ -16,4 +16,7 @@
 
 package com.example.inventory.data
 
-class OfflineItemsRepository : ItemsRepository
+/**
+ * Repository that provides insert, update, delete, and retrieve of [User] from a given data source.
+ */
+interface UsersRepository

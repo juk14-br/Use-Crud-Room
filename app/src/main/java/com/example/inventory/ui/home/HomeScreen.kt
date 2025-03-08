@@ -49,7 +49,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.inventory.InventoryTopAppBar
 import com.example.inventory.R
-import com.example.inventory.data.Item
+import com.example.inventory.data.User
 import com.example.inventory.ui.item.formatedPrice
 import com.example.inventory.ui.navigation.NavigationDestination
 import com.example.inventory.ui.theme.InventoryTheme
@@ -94,7 +94,7 @@ fun HomeScreen(
         },
     ) { innerPadding ->
         HomeBody(
-            itemList = listOf(),
+            userList = listOf(),
             onItemClick = navigateToItemUpdate,
             modifier = modifier.fillMaxSize(),
             contentPadding = innerPadding,
@@ -104,7 +104,7 @@ fun HomeScreen(
 
 @Composable
 private fun HomeBody(
-    itemList: List<Item>,
+    userList: List<User>,
     onItemClick: (Int) -> Unit,
     modifier: Modifier = Modifier,
     contentPadding: PaddingValues = PaddingValues(0.dp),
@@ -113,7 +113,7 @@ private fun HomeBody(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = modifier,
     ) {
-        if (itemList.isEmpty()) {
+        if (userList.isEmpty()) {
             Text(
                 text = stringResource(R.string.no_item_description),
                 textAlign = TextAlign.Center,
@@ -122,7 +122,7 @@ private fun HomeBody(
             )
         } else {
             InventoryList(
-                itemList = itemList,
+                userList = userList,
                 onItemClick = { onItemClick(it.id) },
                 contentPadding = contentPadding,
                 modifier = Modifier.padding(horizontal = dimensionResource(id = R.dimen.padding_small))
@@ -133,8 +133,8 @@ private fun HomeBody(
 
 @Composable
 private fun InventoryList(
-    itemList: List<Item>,
-    onItemClick: (Item) -> Unit,
+    userList: List<User>,
+    onItemClick: (User) -> Unit,
     contentPadding: PaddingValues,
     modifier: Modifier = Modifier
 ) {
@@ -142,8 +142,8 @@ private fun InventoryList(
         modifier = modifier,
         contentPadding = contentPadding
     ) {
-        items(items = itemList, key = { it.id }) { item ->
-            InventoryItem(item = item,
+        items(items = userList, key = { it.id }) { item ->
+            InventoryItem(user = item,
                 modifier = Modifier
                     .padding(dimensionResource(id = R.dimen.padding_small))
                     .clickable { onItemClick(item) })
@@ -153,7 +153,7 @@ private fun InventoryList(
 
 @Composable
 private fun InventoryItem(
-    item: Item, modifier: Modifier = Modifier
+    user: User, modifier: Modifier = Modifier
 ) {
     Card(
         modifier = modifier,
@@ -167,17 +167,17 @@ private fun InventoryItem(
                 modifier = Modifier.fillMaxWidth()
             ) {
                 Text(
-                    text = item.name,
+                    text = user.name,
                     style = MaterialTheme.typography.titleLarge,
                 )
                 Spacer(Modifier.weight(1f))
                 Text(
-                    text = item.formatedPrice(),
+                    text = user.formatedPrice(),
                     style = MaterialTheme.typography.titleMedium
                 )
             }
             Text(
-                text = stringResource(R.string.in_stock, item.quantity),
+                text = stringResource(R.string.in_stock, user.quantity),
                 style = MaterialTheme.typography.titleMedium
             )
         }
@@ -189,7 +189,7 @@ private fun InventoryItem(
 fun HomeBodyPreview() {
     InventoryTheme {
         HomeBody(listOf(
-            Item(1, "Game", 100.0, 20), Item(2, "Pen", 200.0, 30), Item(3, "TV", 300.0, 50)
+            User(1, "Game", 100.0, 20), User(2, "Pen", 200.0, 30), User(3, "TV", 300.0, 50)
         ), onItemClick = {})
     }
 }
@@ -207,7 +207,7 @@ fun HomeBodyEmptyListPreview() {
 fun InventoryItemPreview() {
     InventoryTheme {
         InventoryItem(
-            Item(1, "Game", 100.0, 20),
+            User(1, "Game", 100.0, 20),
         )
     }
 }

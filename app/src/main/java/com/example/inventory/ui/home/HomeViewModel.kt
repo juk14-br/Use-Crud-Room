@@ -17,7 +17,7 @@
 package com.example.inventory.ui.home
 
 import androidx.lifecycle.ViewModel
-import com.example.inventory.data.Item
+import com.example.inventory.data.User
 
 /**
  * ViewModel to retrieve all items in the Room database.
@@ -31,4 +31,4 @@ class HomeViewModel : ViewModel() {
 /**
  * Ui State for HomeScreen
  */
-data class HomeUiState(val itemList: List<Item> = listOf())
+data class HomeUiState(val userList: List<User> = listOf())
