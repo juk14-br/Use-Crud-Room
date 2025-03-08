@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.example.inventory.ui.item
+package com.example.inventory.ui.user
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -26,7 +26,7 @@ import com.example.inventory.data.UsersRepository
 /**
  * ViewModel to retrieve and update an item from the [UsersRepository]'s data source.
  */
-class ItemEditViewModel(
+class UserEditViewModel(
     savedStateHandle: SavedStateHandle,
 ) : ViewModel() {
 

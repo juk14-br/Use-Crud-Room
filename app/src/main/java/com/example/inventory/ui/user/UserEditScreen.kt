@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.example.inventory.ui.item
+package com.example.inventory.ui.user
 
 import androidx.compose.foundation.layout.calculateEndPadding
 import androidx.compose.foundation.layout.calculateStartPadding
@@ -48,7 +48,7 @@ fun ItemEditScreen(
     navigateBack: () -> Unit,
     onNavigateUp: () -> Unit,
     modifier: Modifier = Modifier,
-    viewModel: ItemEditViewModel = viewModel(factory = AppViewModelProvider.Factory)
+    viewModel: UserEditViewModel = viewModel(factory = AppViewModelProvider.Factory)
 ) {
     Scaffold(
         topBar = {
